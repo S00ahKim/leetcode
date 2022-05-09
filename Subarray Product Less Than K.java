@@ -34,6 +34,13 @@ class Solution {
 }
 
 // ===========================
+/**
+ * 기본적으로 서브 어레이가 "연속적"이어야 하기 때문에
+ * 다음 순서에서 추가될 때 k보다 커지면 나중을 기약할 것도 없이 앞에서부터 빼야 한다.
+ * 그래서 i가 앞으로 전진하는 인덱스고, j는 빠지는 인덱스를 둔다.
+ * 그러면 i가 앞으로 나갈 때마다 생성 가능한 서브어레이 숫자는 1, 3, 6, 10, ...개가 되는데
+ * 유일해야 하므로 이전에 나온 걸 빼면 1, 2, 3, 4, ...씩 추가된다. 이는 i-j+1에 해당한다.
+ */
 
 class Solution {
   public int numSubarrayProductLessThanK(int[] nums, int k) {
@@ -45,7 +52,6 @@ class Solution {
       while (i < nums.length && j < nums.length) {
           if (product * nums[i] < k) {
               product = product * nums[i];
-              System.out.println(i - j + 1);
               count   = count + (i - j + 1);
               i++;
           } else {
